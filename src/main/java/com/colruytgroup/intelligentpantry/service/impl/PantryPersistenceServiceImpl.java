@@ -35,6 +35,7 @@ public class PantryPersistenceServiceImpl  implements PantryPersistenceService {
                 existing.setQuantity(
                         existing.getQuantity()
                                 + item.quantity());
+                existing.setExpiryDate(item.expiryDate());
 
                 repository.save(existing);
 
@@ -45,7 +46,9 @@ public class PantryPersistenceServiceImpl  implements PantryPersistenceService {
                                 .itemName(item.itemName())
                                 .quantity(item.quantity())
                                 .unit(item.unit())
+                                .expiryDate(item.expiryDate())
                                 .category(item.category())
+                                .purchaseDate(java.time.LocalDate.now())
                                 .build();
 
                 repository.save(entity);

@@ -15,11 +15,12 @@ public class PantryItemNormalizerService {
             case "milk",
                  "butter",
                  "cheese",
+                 "modern sandwich supreme",
+                 "curd",
                  "yogurt" -> Category.DAIRY;
 
             case "apple",
                  "apples",
-                 "Apples",
                  "banana",
                  "bananas",
                  "orange",
@@ -63,7 +64,7 @@ public class PantryItemNormalizerService {
                  "banana",
                  "orange" -> "Pieces";
 
-            case "milk" -> "Packets";
+            case "milk","modern sandwich supreme" -> "Packets";
 
             default -> "Units";
         };

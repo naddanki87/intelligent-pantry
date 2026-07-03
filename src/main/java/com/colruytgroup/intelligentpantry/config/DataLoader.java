@@ -36,7 +36,7 @@ public class DataLoader {
                 repository.save(
                         PantryItem.builder()
                                 .itemName("Eggs")
-                                .quantity(12.0)
+                                .quantity(2.0)
                                 .unit("Pieces")
                                 .purchaseDate(LocalDate.now())
                                 .expiryDate(LocalDate.now().plusDays(10))
