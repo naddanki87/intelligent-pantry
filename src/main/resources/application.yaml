@@ -39,6 +39,12 @@ spring:
           model: gpt-4o-mini
           temperature: 0.2
 
+azure:
+  storage:
+    connection-string: ${AZURE_STORAGE_CONNECTION_STRING}
+    container-name: vision
+
+
 management:
   endpoints:
     web:
