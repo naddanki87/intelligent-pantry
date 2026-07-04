@@ -30,6 +30,7 @@ public class DataLoader {
                                 .unit("Packets")
                                 .purchaseDate(LocalDate.now())
                                 .expiryDate(LocalDate.now().plusDays(1))
+                                .username("nageshwar")
                                 .category(Category.DAIRY)
                                 .build());
 
@@ -40,6 +41,7 @@ public class DataLoader {
                                 .unit("Pieces")
                                 .purchaseDate(LocalDate.now())
                                 .expiryDate(LocalDate.now().plusDays(10))
+                                .username("nageshwar")
                                 .category(Category.OTHER)
                                 .build());
             }

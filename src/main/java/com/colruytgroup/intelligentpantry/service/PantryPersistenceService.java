@@ -6,4 +6,8 @@ public interface PantryPersistenceService {
 
     void saveInventory(
             PantryExtractionResponse response);
+
+    void saveInventory(
+            String username,
+            PantryExtractionResponse response);
 }

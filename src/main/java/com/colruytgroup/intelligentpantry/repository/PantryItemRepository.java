@@ -13,6 +13,13 @@ import java.util.Optional;
 @Repository
 public interface PantryItemRepository  extends JpaRepository<PantryItem, Long> {
 
+    List<PantryItem> findByUsername(
+            String username);
+
+    Optional<PantryItem> findByUsernameAndItemNameIgnoreCase(
+            String username,
+            String itemName);
+
     Optional<PantryItem> findByItemNameIgnoreCase(
             String itemName);
 

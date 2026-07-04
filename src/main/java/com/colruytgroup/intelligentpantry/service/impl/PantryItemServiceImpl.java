@@ -18,10 +18,12 @@ public class PantryItemServiceImpl   implements PantryItemService {
 
     @Override
     public PantryItemResponse create(
+            String username,
             PantryItemRequest request) {
 
         PantryItem item =
                 PantryItem.builder()
+                        .username(username)
                         .itemName(request.itemName())
                         .quantity(request.quantity())
                         .unit(request.unit())
@@ -36,9 +38,10 @@ public class PantryItemServiceImpl   implements PantryItemService {
     }
 
     @Override
-    public List<PantryItemResponse> getAll() {
+    public List<PantryItemResponse> getAll(
+            String username) {
 
-        return repository.findAll()
+        return repository.findByUsername(username)
                 .stream()
                 .map(this::map)
                 .toList();

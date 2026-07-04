@@ -9,7 +9,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,14 +18,7 @@ import lombok.Setter;
 import java.time.LocalDate;
 
 @Entity
-@Table(
-        name = "PANTRY_ITEM",
-        uniqueConstraints = {
-                @UniqueConstraint(
-                        columnNames = "ITEM_NAME"
-                )
-        }
-)
+@Table(name = "PANTRY_ITEM")
 @Getter
 @Setter
 @Builder
@@ -37,6 +29,9 @@ public class PantryItem  extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
+    private String username;
 
     @Column(nullable = false)
     private String itemName;

@@ -56,4 +56,45 @@ public class PantryPersistenceServiceImpl  implements PantryPersistenceService {
         }
 
     }
+
+    @Override
+    public void saveInventory(String username, PantryExtractionResponse response) {
+
+        for (PantryItemAiResponse item : response.items()) {
+
+            Optional<PantryItem> existingItem =
+                    repository.findByUsernameAndItemNameIgnoreCase(
+                            username,
+                            item.itemName());
+
+            if (existingItem.isPresent()) {
+
+                PantryItem existing =
+                        existingItem.get();
+
+                existing.setQuantity(
+                        existing.getQuantity()
+                                + item.quantity());
+                existing.setExpiryDate(item.expiryDate());
+
+                repository.save(existing);
+
+            } else {
+
+                PantryItem entity =
+                        PantryItem.builder()
+                                .username(username)
+                                .itemName(item.itemName())
+                                .quantity(item.quantity())
+                                .unit(item.unit())
+                                .expiryDate(item.expiryDate())
+                                .category(item.category())
+                                .purchaseDate(java.time.LocalDate.now())
+                                .build();
+
+                repository.save(entity);
+            }
+        }
+
+    }
 }

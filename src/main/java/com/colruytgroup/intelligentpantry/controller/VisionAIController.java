@@ -7,6 +7,7 @@ import com.colruytgroup.intelligentpantry.service.PantryPersistenceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
@@ -80,6 +81,18 @@ public class VisionAIController {
     public PantryExtractionResponse extractSave( @RequestPart("file") MultipartFile file) throws IOException {
         PantryExtractionResponse pantryExtractionResponse = pantryAiService.extractInventoryFromImage(file);
         persistenceService.saveInventory(pantryExtractionResponse);
+        return pantryExtractionResponse;
+    }
+
+    @PostMapping(
+            value = "/v2/extract-save",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE
+    )
+    public PantryExtractionResponse extractSaveV2(
+            @RequestHeader("X-user_id") String username,
+            @RequestPart("file") MultipartFile file) throws IOException {
+        PantryExtractionResponse pantryExtractionResponse = pantryAiService.extractInventoryFromImage(file);
+        persistenceService.saveInventory(username, pantryExtractionResponse);
         return pantryExtractionResponse;
     }
 
