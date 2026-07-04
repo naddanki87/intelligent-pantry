@@ -1,0 +1,10 @@
+# Template for local Cosmos DB credentials. Copy to `cosmos.properties` (which is
+# git-ignored) and fill in real values, OR set these as environment variables.
+#
+#   cp cosmos.properties.example cosmos.properties
+#
+# application.yaml imports cosmos.properties optionally; if it is absent the same
+# COSMOS_* environment variables are used as a fallback.
+COSMOS_URI=https://<your-account>.documents.azure.com:443/
+COSMOS_KEY=<your-primary-or-secondary-key>
+COSMOS_DATABASE=pantrydb

@@ -9,6 +9,12 @@ spring:
   application:
     name: intelligent-pantry
 
+  # Load local Cosmos credentials from cosmos.properties when it exists (dev).
+  # `optional:` means startup still succeeds when the file is absent (e.g. AKS),
+  # in which case the COSMOS_* environment variables below are used instead.
+  config:
+    import: "optional:file:./cosmos.properties"
+
   datasource:
     url: jdbc:h2:mem:pantrydb
     driver-class-name: org.h2.Driver
@@ -39,11 +45,30 @@ spring:
           model: gpt-4o-mini
           temperature: 0.2
 
+  # Azure Cosmos DB backs the preferences store only.
+  # Everything else stays on the in-memory H2 datasource configured above.
+  cloud:
+    azure:
+      cosmos:
+        # Injected via environment variables. The KEY is a secret and must never
+        # be committed: set COSMOS_KEY locally (e.g. shell/.env) and in AKS it is
+        # supplied by the intelligent-pantry-secrets Kubernetes secret.
+        endpoint: ${COSMOS_URI:https://inteligent-pantry.documents.azure.com:443/}
+        key: ${COSMOS_KEY}
+        database: ${COSMOS_DATABASE:pantrydb}
+        populate-query-metrics: false
+
 management:
   endpoints:
     web:
       exposure:
         include: "*"
+  endpoint:
+    health:
+      # Exposes /actuator/health/liveness and /actuator/health/readiness
+      # for the Kubernetes liveness/readiness probes.
+      probes:
+        enabled: true
 
 springdoc:
   swagger-ui:

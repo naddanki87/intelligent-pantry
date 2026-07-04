@@ -14,11 +14,13 @@ java {
 }
 ext {
 	springAiVersion = "1.0.0"
+	springCloudAzureVersion = "6.4.0"
 }
 
 dependencyManagement {
 	imports {
 		mavenBom "org.springframework.ai:spring-ai-bom:${springAiVersion}"
+		mavenBom "com.azure.spring:spring-cloud-azure-dependencies:${springCloudAzureVersion}"
 	}
 }
 
@@ -34,8 +36,11 @@ dependencies {
 	// Validation
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
-	// JPA
+	// JPA (H2-backed, everything except preferences)
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	// Azure Cosmos DB (preferences only)
+	implementation 'com.azure.spring:spring-cloud-azure-starter-data-cosmos'
 
 	// Actuator
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
